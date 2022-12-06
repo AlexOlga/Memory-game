@@ -26,7 +26,6 @@ body {
 header {
   height: 90px;
   text-align: center;
-  margin: 0, auto;
 }
 h1 {
   padding-top: 10px;
@@ -37,16 +36,13 @@ h1 {
 }
 .main {
   display: flex;
-  min-height: calc(100vh - 180px);
 }
 .result {
   width: 150px;
   margin: auto 20px;
-  /*margin-left: 20px;
-  margin-right: 20px;*/
   padding: 10px;
 }
-.record {
+.result__log {
   height: 80px;
   width: 80px;
 
@@ -58,7 +54,7 @@ h1 {
   transition: 0.3s;
   cursor: pointer;
 }
-.record:hover {
+.result__log:hover {
   transform: scale(1.1);
 }
 
@@ -68,7 +64,6 @@ h1 {
   flex-wrap: wrap;
   align-content: center;
   width: 900px;
-  min-height: calc(100vh - 180px);
   perspective: 1000px;
 }
 
@@ -93,7 +88,6 @@ h1 {
 .front-face {
   width: 100%;
   height: 100%;
-  /* object-fit: cover;*/
   position: absolute;
   border-radius: 5px;
   transition: 0.3s;
@@ -105,7 +99,6 @@ h1 {
 .back-face {
   width: 100%;
   height: 100%;
-  /* object-fit: cover;*/
   position: absolute;
   border-radius: 10px;
   transition: 0.3s;
@@ -161,13 +154,12 @@ h1 {
   justify-content: center;
   align-items: center;
   padding: 30px 10px;
-  padding-top: 300px;
+  padding-top: 20vh;
 }
 .popup-content {
   background-color: #fff;
   color: darkslategray;
-  /*max-width: 800px;*/
-  width: 600px;
+  max-width: 600px;
   height: 300px;
   text-align: center;
   line-height: 2;
@@ -274,7 +266,15 @@ h1 {
   background: #f7f7f7;
 }
 
+.pop-activ {
+  opacity: 1;
+  visibility: visible;
+}
+
 @media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
   .header {
     height: 60px;
   }
@@ -286,19 +286,46 @@ h1 {
   }
   .main {
     min-height: auto;
+    flex-direction: column;
+    justify-content: center;
   }
   .card-conteiner {
-    width: 600px;
-    min-height: 600px;
+    width: 100%;
+    justify-content: center;
+    padding: 5px;
+    margin: 0 auto;
   }
 
   .memory-card {
-    width: 140px;
-    height: 116px;
-    margin: 5px 5px 0 0;
+    width: 24vw;
+    height: 24vw;
+    margin: 3px 3px 0 0;
+  }
+  .result {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .footer-logo {
+    width: 80px;
+    height: 30px;
+  }
+  .footer-link:hover {
+    font-size: 18px;
+  }
+  .btn-ok {
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: darkslategray;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  .popup-record-content{
+    padding: 5px;
   }
 }
-.pop-activ {
-  opacity: 1;
-  visibility: visible;
-}
+
