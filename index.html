@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/favicon.ico" />
+    <title>Memory game</title>
+  </head>
+  <body class="wrapper">
+    <header>
+      <h1>Memory Game</h1>
+    </header>
+    <main class="main">
+      <div class="result">
+        <div class="result__log"></div>
+        <div class="result__score">
+            <p>Turns: <span class="turns"></span></p>
+            <p>Paris: <span class="paris"></span></p>
+        </div>
+       
+      </div>
+      <div class="card-conteiner">
+        <div class="memory-card" data-card="card-1">
+          <img class="front-face" src="./assets/img/1.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-1">
+          <img class="front-face" src="./assets/img/1.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-2">
+          <img class="front-face" src="./assets/img/2.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-2">
+          <img class="front-face" src="./assets/img/2.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-3">
+          <img class="front-face" src="./assets/img/3.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-3">
+          <img class="front-face" src="./assets/img/3.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-4">
+          <img class="front-face" src="./assets/img/4.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-4">
+          <img class="front-face" src="./assets/img/4.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-5">
+          <img class="front-face" src="./assets/img/5.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-5">
+          <img class="front-face" src="./assets/img/5.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-6">
+          <img class="front-face" src="./assets/img/6.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-6">
+          <img class="front-face" src="./assets/img/6.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-7">
+          <img class="front-face" src="./assets/img/7.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-7">
+          <img class="front-face" src="./assets/img/7.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-8">
+          <img class="front-face" src="./assets/img/8.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+        <div class="memory-card" data-card="card-8">
+          <img class="front-face" src="./assets/img/8.jpg" alt="card" />
+          <img
+            class="back-face"
+            src="./assets/img/back-face.jpg"
+            alt="Memory Card"
+          />
+        </div>
+      </div>
+    </main>
+    <footer class="footer-class">
+      <div class="footer-div">
+        <span class="footer-span">©</span>
+        <span class="footer-span">2022</span>
+        <span class="footer-span"> <a href="https://github.com/AlexOlga" class="footer-link">Github</a>
+        </span>
+      </div>
+      <a href="https://rs.school/js-stage0/">
+        <div class="footer-logo"></div
+      ></a>
+    </footer>
+
+    <div class="pop-up">
+      <div class="pop-up-body">
+        <div class="popup-content">
+          <a class="popup-close">X</a>
+          <h3>Congratulations</h3>
+          <p>You finished the game this <span class="turns"></span> turns</p>
+          <p>Your name:</p>
+          <input type="text" class="user-name" placeholder="Name" autofocus />
+          <input type="button" class="btn-ok" value="ok" />
+        </div>
+      </div>
+    </div>
+    <div class="pop-record">
+      <div class="pop-recodr-body">
+        <div class="popup-record-content">
+          <a class="pop-record-close">X</a>
+          <h3>Record</h3>
+          <table class="table" id="tableRecord">
+            <thead>
+              <tr>
+                <th>Rang</th>
+                <th>Player</th>
+                <th>Turns</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
