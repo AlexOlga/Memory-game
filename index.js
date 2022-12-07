@@ -1,5 +1,7 @@
-const PAIRS_FOR_WIN = 8;
-const cards = document.querySelectorAll(".memory-card");
+import { addResult, saveResult,  clickRecord,  closeRecord } from "./results.js";
+import { shuffle, PAIRS_FOR_WIN, compareUser } from "./utils.js";
+import { setLocalStorage, getLocalStorage } from "./localStore.js";
+
 let hasOpenCard = false;
 let firstCard;
 let secondCard;
@@ -8,6 +10,41 @@ let pairs = 0;
 let hasTwoCard = false;
 let users = [];
 let quantityUsers;
+
+const cards = document.querySelectorAll(".memory-card");
+const popUp = document.querySelector(".pop-up");
+const closeLink = document.querySelector(".popup-close");
+const btnOk = document.querySelector(".btn-ok");
+
+// addResult(pairs, turns);
+shuffle();
+
+cards.forEach((item) => {
+  item.addEventListener("click", gameMemo);
+});
+closeLink.addEventListener("click", closePopup);
+btnOk.addEventListener("click", closePopup);
+
+window.addEventListener("beforeunload", () => {
+  setLocalStorage(users);
+});
+window.addEventListener("load", () => {
+  quantityUsers = getLocalStorage(users);
+});
+
+const recordTa = document.querySelector(".result__log");
+const btnRecord = document.querySelector(".pop-record-close");
+
+recordTa.addEventListener("click", () => clickRecord(users));
+btnRecord.addEventListener("click", closeRecord);
+
+const input = document.querySelector(".user-name");
+//закрытие окна по кнопке enter
+input.addEventListener("keydown", (e) => {
+  if (e.keyCode === 13) {
+    closePopup();
+  }
+});
 
 function gameMemo() {
   //не открывать более двух карт
@@ -33,7 +70,7 @@ function gameMemo() {
       pairs++;
       hasTwoCard = false;
       if (pairs === PAIRS_FOR_WIN) {
-        addResult();
+        addResult(pairs, turns);
         popUp.classList.add("pop-activ");
         return;
       }
@@ -48,31 +85,13 @@ function gameMemo() {
       }, 1500);
     }
   }
-  addResult();
-}
-
-const pairsText = document.querySelector(".paris");
-const turnsText = document.querySelectorAll(".turns");
-
-function addResult() {
-  pairsText.textContent = pairs;
-  turnsText.forEach((item) => {
-    item.textContent = turns;
-  });
-}
-
-//перемешиваем карты
-function shuffle() {
-  cards.forEach((card) => {
-    let ramdomPos = Math.floor(Math.random() * 16);
-    card.style.order = ramdomPos;
-  });
+  addResult(pairs, turns);
 }
 
 //закрываем окно с записью имени и перемешиваем карты обнуляем переменные
 function closePopup() {
   popUp.classList.remove("pop-activ");
-  saveResult();
+  saveResult(turns, users);
   turns = 0;
   pairs = 0;
   hasTwoCard = false;
@@ -84,126 +103,6 @@ function closePopup() {
   });
 
   shuffle();
-  addResult();
+  addResult(pairs, turns);
 }
 
-addResult();
-shuffle();
-
-cards.forEach((item) => {
-  item.addEventListener("click", gameMemo);
-});
-const popUp = document.querySelector(".pop-up");
-const closeLink = document.querySelector(".popup-close");
-closeLink.addEventListener("click", closePopup);
-
-const btnOk = document.querySelector(".btn-ok");
-const nameUser = document.querySelector(".user-name");
-
-function saveResult() {
-  let newUser = {};
-  if (nameUser.value == "") {
-    newUser.name = "I am very humble";
-  } else {
-    newUser.name = nameUser.value;
-  }
-  newUser.turns = turns;
-  users.push(newUser);
-}
-btnOk.addEventListener("click", closePopup);
-
-//сохраняем переменные из local store
-function setLocalStorage() {
-  users.sort(compareUser);
-  if (users.length > 10) {
-    users = users.slice(0, 10);
-  }
-  localStorage.setItem("quantityUsers", users.length);
-
-  users.forEach((item, index) => {
-    localStorage.setItem(
-      `user_${index}`,
-      `${item.name}-separator-${item.turns}`
-    );
-  });
-}
-
-window.addEventListener("beforeunload", setLocalStorage);
-
-// достаем переменные из local store
-function getLocalStorage() {
-  if (localStorage.getItem("quantityUsers")) {
-    quantityUsers = +localStorage.getItem("quantityUsers");
-  }
-  for (let i = 0; i < quantityUsers; i++) {
-    users[i] = {};
-    if (localStorage.getItem(`user_${i}`)) {
-      let s;
-      s = localStorage.getItem(`user_${i}`);
-      let arr = s.split("-separator-");
-      users[i].name = arr[0];
-      users[i].turns = Number(arr[1]);
-    }
-  }
-}
-window.addEventListener("load", getLocalStorage);
-
-//правила сортировки массива
-function compareUser(a, b) {
-  if (a.turns > b.turns) return 1; // если первое значение больше второго
-  if (a.turns == b.turns) return 0; // если равны
-  if (a.turns < b.turns) return -1; // если первое значение меньше второго
-}
-
-//составляем таблицу рекордов
-function addRow(tableID) {
-  users.sort(compareUser);
-  if (users.length > 10) {
-    users = users.slice(0, 10);
-  }
-  users.forEach((item, i) => {
-    var newRow = tableRef.insertRow(-1);
-
-    var newCell = newRow.insertCell(-1);
-    var newText = document.createTextNode(i + 1);
-    newCell.appendChild(newText);
-    newCell = newRow.insertCell(-1);
-    newText = document.createTextNode(item.name);
-    newCell.appendChild(newText);
-    newCell = newRow.insertCell(-1);
-    newText = document.createTextNode(item.turns);
-    newCell.appendChild(newText);
-  });
-}
-
-function deletRow() {
-  let n = tableRef.rows.length - 1;
-  for (let i = n; i > 0; i--) {
-    tableRef.deleteRow(i);
-  }
-}
-
-const recordTa = document.querySelector(".result__log");
-console.log(recordTa);
-const popRecord = document.querySelector(".pop-record");
-const btnRecord = document.querySelector(".pop-record-close");
-let tableRef = document.getElementById("tableRecord");
-
-function clickRecord() {
-  deletRow();
-  addRow("tableRecord");
-  popRecord.classList.add("pop-activ");
-}
-
-function closeRecord() {
-  popRecord.classList.remove("pop-activ");
-}
-recordTa.addEventListener("click", clickRecord);
-btnRecord.addEventListener("click", closeRecord);
-const input = document.querySelector(".user-name");
-//закрытие окна по кнопке enter
-input.addEventListener("keydown", (e) => {
-  if (e.keyCode === 13) {
-    closePopup();
-  }
-});
